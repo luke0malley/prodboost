@@ -25,4 +25,18 @@ function blockURL() {
   document.getElementById("myForm").reset();
 }
 
+// Attempt to use Chrome's Storage API to work with session
+
+// // access level is "TRUSTED_CONTEXTS" by default
+// // we need to change this apparently, but this still isn't working
+// chrome.storage.session.setAccessLevel({ accessLevel: 'TRUSTED_AND_UNTRUSTED_CONTEXTS' });
+
+// // write key-value pair to session
+// chrome.storage.session.set({ "newKey": "newValue" })
+
+// // get key-value pair from session
+// chrome.storage.local.get(["newKey"]).then((result) => {
+//   console.log("get:" + result.key);
+// });
+
 
