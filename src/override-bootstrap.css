@@ -52,5 +52,5 @@ input[type='checkbox']:active {
   --bs-accordion-btn-focus-border-color: var(--bs-bg-success)!important;
   --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(0, 206, 110, 0.25)!important;
   --bs-accordion-active-color: var(--bs-success)!important;
-  --bs-accordion-active-bg: var(--bs-bg-success)!important;
+  --bs-accordion-active-bg: none!important;
 }
