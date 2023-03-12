@@ -23,7 +23,9 @@ export default function SessionDuration() {
                         <Form.Label className="mb-2">
                             For how long do you want to block URLs?
                         </Form.Label>
-                        <Form.Control type="number" min="0" placeholder="30" className="w-25 ms-3" />
+                        <Form.Control type="number" min="0" value={durationAmt} className="w-25 ms-3"
+                            onChange={(e) => setDurationAmt(e.target.value)}
+                        />
                         <Dropdown className="w-50">
                             <Dropdown.Toggle variant="secondary">
                                 {durationUnit}
@@ -31,14 +33,16 @@ export default function SessionDuration() {
                             <Dropdown.Menu>
                             {
                                 DURATION_UNIT_OPTIONS.map(unit =>
-                                <Dropdown.Item>
+                                <Dropdown.Item onClick={() => setDurationUnit(unit)}>
                                     {unit}
                                 </Dropdown.Item>)
                             }
                             </Dropdown.Menu>
                         </Dropdown>
                     </Form.Group>
-                    <Button variant="success" type="button" className="col-4 h-content align-self-end" onClick={() => console.log("submit session duration")}>
+                    <Button variant="success" type="button" className="col-4 h-content align-self-end"
+                        onClick={() => console.log("start blocking button clicked")}
+                    >
                         Start blocking
                     </Button>
                 </Form>
