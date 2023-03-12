@@ -20,7 +20,9 @@ export default function SessionDuration() {
             <Accordion.Body>
                 <Form className="row justify-content-between">
                     <Form.Group controlId="formSessionDuration" className="col-6 row">
-                        <Form.Label>For how long do you want to block URLs?</Form.Label>
+                        <Form.Label className="mb-2">
+                            For how long do you want to block URLs?
+                        </Form.Label>
                         <Form.Control type="number" min="0" placeholder="30" className="w-25 ms-3" />
                         <Dropdown className="w-50">
                             <Dropdown.Toggle variant="secondary">
