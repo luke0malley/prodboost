@@ -55,16 +55,16 @@ export default function List() {
                 <Table hover>
                     <thead>
                         <tr>
-                            <th scope="col" className="p-1">URL</th>
-                            <th scope="col" className="p-1">Time Added</th>
-                            <th scope="col" className="p-1"></th>
+                            <th scope="col">URL</th>
+                            <th scope="col">Time Added</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {urls.length !== 0 && urls.map((url, index) => <tr key={index}>
-                            <td className="p-1">{url.url}</td>
-                            <td className="p-1">{moment(url.date).fromNow()}</td>
-                            <td className="p-1">
+                            <td>{url.url}</td>
+                            <td>{moment(url.date).fromNow()}</td>
+                            <td>
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip id='tooltip-bottom'>
                                         Delete
@@ -78,35 +78,40 @@ export default function List() {
                             </td>
                         </tr>)}
                         {urls.length === 0 && <tr>
-                            <td className="p-1" >Nothing here yet...</td>
-                            <td className="p-1">...</td>
-                            <td className="p-1">...</td>
+                            <td >Nothing here yet...</td>
+                            <td>...</td>
+                            <td>...</td>
                         </tr>}
                     </tbody>
                 </Table>
                 <Row className="align-items-center">
-                    <Form hasValidation onSubmit={handleSubmit} onChange={handleChange}>
+                    <Form hasValidation onSubmit={handleSubmit} onChange={handleChange}
+                        className="d-flex flex-column gap-2"
+                    >
                         <Form.Label htmlFor="form-add-URL">Add URL to Block</Form.Label>
                         <Form.Group
                             as={Col}
                             controlId="formValidation"
+                            className="d-flex row justify-content-between mx-0"
                         >
                             <Form.Control
-                                className="mb-2"
+                                className="w-75 mb-2"
                                 id="form-add-URL"
                                 placeholder="www.example.com"
                                 isValid={formValidity !== "" ? formValidity === "true" : false}
                                 isInvalid={formValidity !== "" ? formValidity === "false" : false}
                                 value={inputText}
                             />
-                        </Form.Group>
-                        <Form.Group
-                            as={Col}
-                        >
-                            <Button type="submit" className="mb-2">
+                            <Button variant="success" className="col-2" type="submit" onClick={() => console.log('add URL btn clicked')}>
                                 Add URL
                             </Button>
                         </Form.Group>
+
+                        <Button variant="secondary" className="col-2 align-self-end" type="button"
+                            onClick={() => console.log('Edit URLs btn clicked')}
+                        >
+                            Edit URLs
+                        </Button>
                     </Form>
                 </Row>
             </>

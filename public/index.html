@@ -12,31 +12,39 @@
     <style>
       /* forcefully override Bootstrap defaults */
       body {
-        min-width: 40rem;
-        accent-color: var(--green); /* radio btns */
+        min-width: 40rem!important;
+        accent-color: var(--green)!important; /* radio btns */
       }
-      *,
-      .btn {
+      *, .btn {
         /* font-size: 0.875rem; */
-        font-size: 0.9125rem;
+        font-size: 0.9125rem!important;
       }
-      h2 {
-        font-size: 1.5rem;
+      h2, .text-lg {
+        font-size: 1.5rem!important
       }
       p {
-        margin-inline: 0;
-        margin-block: 0;
+        margin-inline: 0!important;
+        margin-block: 0!important;
       }
-      .gap-2 {
-        /* extend gap-2 to work on flex, not just grid */
-        gap: 0.5rem;
+      .gap-2 { /* extend gap-2 to work on flex, not just grid */
+        gap: 0.5rem!important;
       }
       label {
-        margin: 0;
+        margin: 0!important;
       }
-      .table td,
-      .table th {
-        border-top: none;
+      .table td, .table th {
+        border-top: none!important;
+        padding: 0.25rem!important;
+      }
+      .table td {
+        border-bottom: none!important;
+      }
+      .h-content {
+        height: fit-content!important;
+      }
+      .accordion-button:focus {
+        /* TODO */
+        /* border-color:  */
       }
     </style>
   </head>
