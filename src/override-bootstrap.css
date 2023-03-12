@@ -4,53 +4,57 @@ body {
   /* --success: #28a745!important; */
   --bs-bg-success: #e8fff2;
 
-  min-width: 40rem!important;
+  min-width: 40rem !important;
 }
-*, .btn {
+*,
+.btn {
   /* font-size: 0.875rem; */
-  font-size: 0.9125rem!important;
+  font-size: 0.9125rem !important;
 }
-h2, .text-lg {
-  font-size: 1.5rem!important
+h2,
+.text-lg {
+  font-size: 1.5rem !important;
 }
 p {
-  margin-inline: 0!important;
-  margin-block: 0!important;
+  margin-inline: 0 !important;
+  margin-block: 0 !important;
 }
-.gap-2 { /* extend gap-2 to work on flex, not just grid */
-  gap: 0.5rem!important;
+.gap-2 {
+  /* extend gap-2 to work on flex, not just grid */
+  gap: 0.5rem !important;
 }
 label {
-  margin: 0!important;
+  margin: 0 !important;
 }
-.table td, .table th {
-  border-top: none!important;
-  padding: 0.25rem!important;
+.table td,
+.table th {
+  border-top: none !important;
+  padding: 0.25rem !important;
 }
 .table td {
-  border-bottom: none!important;
+  border-bottom: none !important;
 }
 .h-content {
-  height: fit-content!important;
+  height: fit-content !important;
 }
 .form-check-input:checked {
-  background-color: var(--bs-success)!important;
+  background-color: var(--bs-success) !important;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   /* border-color: var(--bs-success)!important; */
-  accent-color: var(--bs-success)!important;
+  accent-color: var(--bs-success) !important;
 }
-input[type='checkbox']:active {
-  border-color: var(--bs-success)!important;
+input[type="checkbox"]:active {
+  border-color: var(--bs-success) !important;
 }
 .accordion {
   /* TODO: change accordian icon color */
   /* --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23212529%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e"); */
   /* --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%230c63e4%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e"); */
-  --bs-accordion-border-color: var(--bs-success)!important;
-  --bs-accordion-btn-bg: var(--bs-accordion-bg)!important;
-  --bs-accordion-btn-focus-border-color: var(--bs-bg-success)!important;
-  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(0, 206, 110, 0.25)!important;
-  --bs-accordion-active-color: var(--bs-success)!important;
-  --bs-accordion-active-bg: none!important;
+  --bs-accordion-border-color: var(--bs-success) !important;
+  --bs-accordion-btn-bg: var(--bs-accordion-bg) !important;
+  --bs-accordion-btn-focus-border-color: var(--bs-bg-success) !important;
+  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(0, 206, 110, 0.25) !important;
+  --bs-accordion-active-color: var(--bs-success) !important;
+  --bs-accordion-active-bg: none !important;
 }

@@ -7,6 +7,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 import moment from 'moment'
 
 export default function List() {
@@ -14,9 +15,10 @@ export default function List() {
     const [loaded, setLoaded] = useState(false);
     const [inputText, setInputText] = useState("");
     const [formValidity, setFormValidity] = useState("");
+    const [checked, setChecked] = useState(false);
 
     useEffect(() => {
-        chrome.storage?.sync.get(["blockedurls"]).then((result) => {
+        chrome.storage.sync.get(["blockedurls"]).then((result) => {
             if (result.blockedurls) {
                 setUrls(result.blockedurls);
             }
@@ -25,7 +27,10 @@ export default function List() {
     }, []);
     const handleChange = (e) => {
         setInputText(e.target.value);
-        if (formValidity === "false") {
+        if (e.target.value === "") {
+            setFormValidity("");
+        }
+        else if (formValidity === "false") {
             setFormValidity("true");
         }
     }
@@ -33,6 +38,9 @@ export default function List() {
         const newUrls = urls.filter((u) => u.url !== url)
         setUrls(urls.filter((u) => u.url !== url))
         chrome.storage.sync.set({ "blockedurls": newUrls })
+        if (newUrls.length === 0) {
+            setChecked(false);
+        }
     }
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -42,7 +50,6 @@ export default function List() {
             return
         }
         const newUrls = [...urls, newInput];
-        console.log(newUrls)
         setUrls([...urls, newInput]);
         chrome.storage.sync.set({ "blockedurls": newUrls }).then(() => {
             setInputText("");
@@ -64,7 +71,7 @@ export default function List() {
                         {urls.length !== 0 && urls.map((url, index) => <tr key={index}>
                             <td>{url.url}</td>
                             <td>{moment(url.date).fromNow()}</td>
-                            <td>
+                            <td style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip id='tooltip-bottom'>
                                         Delete
@@ -107,11 +114,17 @@ export default function List() {
                             </Button>
                         </Form.Group>
 
-                        <Button variant="secondary" className="col-2 align-self-end" type="button"
-                            onClick={() => console.log('Edit URLs btn clicked')}
+                        <ToggleButton
+                            id="toggle-edit"
+                            variant="secondary"
+                            className="col-2 align-self-end"
+                            type="checkbox"
+                            onChange={(e) => setChecked(e.currentTarget.checked)}
+                            checked={checked}
+                            hidden={urls.length === 0}
                         >
                             Edit URLs
-                        </Button>
+                        </ToggleButton>
                     </Form>
                 </Row>
             </>

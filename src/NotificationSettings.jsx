@@ -29,7 +29,7 @@ export default function NotificationSettings() {
                             </tr>
                         </thead>
                         <tbody>
-                            { Object.keys(notificationSettings).map(settingName =>
+                            {Object.keys(notificationSettings).map(settingName =>
                                 <tr key={`row-${settingName}`}>
                                     <td>
                                         <Form>
