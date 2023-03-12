@@ -16,7 +16,7 @@ export default function List() {
     const [formValidity, setFormValidity] = useState("");
 
     useEffect(() => {
-        chrome.storage.sync.get(["blockedurls"]).then((result) => {
+        chrome.storage?.sync.get(["blockedurls"]).then((result) => {
             if (result.blockedurls) {
                 setUrls(result.blockedurls);
             }
@@ -72,7 +72,7 @@ export default function List() {
                                 }
                                 >
                                     <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
-                                        <i class="bi-trash-fill"></i>
+                                        <i className="bi-trash-fill"></i>
                                     </Button>
                                 </OverlayTrigger>
                             </td>
