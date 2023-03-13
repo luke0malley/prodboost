@@ -44,7 +44,7 @@ export default function List() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newInput = { "url": inputText, "date": new Date().toLocaleString() };
+        const newInput = { "url": inputText, "date": moment().toISOString() };
         if (inputText === "") {
             setFormValidity("false");
             return

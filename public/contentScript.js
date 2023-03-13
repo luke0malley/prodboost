@@ -10,7 +10,6 @@ chrome.storage.sync.get(["blockedurls"]).then((result) => {
     for (let i = 0; i < result.blockedurls.length; i++) {
       if (result.blockedurls[i].url === window.location.hostname) {
         blockPage();
-        break;
       }
     }
   }
