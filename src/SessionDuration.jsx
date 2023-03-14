@@ -18,6 +18,7 @@ export default function SessionDuration() {
         chrome.storage.sync.get(["blockingsession"]).then((result) => {
             if (result.blockingsession) {
                 setBlockingSession(result.blockingsession);
+                setInterval(updateBlockingTime, 1000);
             }
             else {
                 chrome.storage.sync.set({ "blockingsession": { blocking: false } })
@@ -25,7 +26,6 @@ export default function SessionDuration() {
             }
         })
         setLoaded(true);
-        setInterval(updateBlockingTime, 5000);
     }, []);
 
     const handleBlockingClick = () => {
@@ -37,6 +37,7 @@ export default function SessionDuration() {
             if (durationAmt === 0) {
                 return;
             }
+            setInterval(updateBlockingTime, 1000);
             chrome.storage.sync.set({ "blockingsession": { blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() } })
             setBlockingSession({ blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() })
         }
@@ -55,14 +56,34 @@ export default function SessionDuration() {
         })
     }
 
+    const getBlockingTime = () => {
+        let days = moment(blockingSession.blocking_time).diff(moment(), 'd')
+        let hours = moment(blockingSession.blocking_time).diff(moment(), 'h')
+        let minutes = moment(blockingSession.blocking_time).diff(moment(), 'm')
+        let seconds = moment(blockingSession.blocking_time).diff(moment(), 's')
+        let output = ""
+        if (days > 0) {
+            output += days + " days, "
+        }
+        if (hours > 0) {
+            output += (hours % 24) + " hours, "
+        }
+        if (minutes > 0) {
+            output += (minutes % 60) + " minutes, "
+        }
+        if (seconds > 0) {
+            output += (seconds % 60) + " seconds"
+        }
+        return output
+    }
+
     if (loaded) {
-        console.log(blockingSession)
         return (
             <>
                 {
                     blockingSession.blocking &&
                     <Alert variant="success">
-                        Blocking URLs for {moment(blockingSession.blocking_time).fromNow(true)}
+                        Blocking URLs for {getBlockingTime()}
                     </Alert>
                 }
                 <Accordion defaultActiveKey="0" flush
