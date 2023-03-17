@@ -15,13 +15,13 @@ export default function SessionDuration() {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-        chrome.storage.sync.get(["blockingsession"]).then((result) => {
+        chrome.storage?.sync.get(["blockingsession"]).then((result) => {
             if (result.blockingsession) {
                 setBlockingSession(result.blockingsession);
                 setInterval(updateBlockingTime, 1000);
             }
             else {
-                chrome.storage.sync.set({ "blockingsession": { blocking: false } })
+                chrome.storage?.sync.set({ "blockingsession": { blocking: false } })
                 setBlockingSession({ blocking: false });
             }
         })
@@ -30,7 +30,7 @@ export default function SessionDuration() {
 
     const handleBlockingClick = () => {
         if (blockingSession.blocking) {
-            chrome.storage.sync.set({ "blockingsession": { blocking: false } })
+            chrome.storage?.sync.set({ "blockingsession": { blocking: false } })
             setBlockingSession({ blocking: false });
         }
         else {
@@ -38,19 +38,19 @@ export default function SessionDuration() {
                 return;
             }
             setInterval(updateBlockingTime, 1000);
-            chrome.storage.sync.set({ "blockingsession": { blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() } })
+            chrome.storage?.sync.set({ "blockingsession": { blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() } })
             setBlockingSession({ blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() })
         }
     }
 
     const updateBlockingTime = () => {
-        chrome.storage.sync.get(["blockingsession"]).then((result) => {
+        chrome.storage?.sync.get(["blockingsession"]).then((result) => {
             if (moment() >= moment(result.blockingsession.blocking_time)) {
                 setBlockingSession({ blocking: false });
-                chrome.storage.sync.set({ "blockingsession": { blocking: false } });
+                chrome.storage?.sync.set({ "blockingsession": { blocking: false } });
             }
             else {
-                chrome.storage.sync.set({ "blockingsession": result.blockingsession })
+                chrome.storage?.sync.set({ "blockingsession": result.blockingsession })
                 setBlockingSession(result.blockingsession);
             }
         })

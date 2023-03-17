@@ -18,7 +18,7 @@ export default function List() {
     const [checked, setChecked] = useState(false);
 
     useEffect(() => {
-        chrome.storage.sync.get(["blockedurls"]).then((result) => {
+        chrome.storage?.sync.get(["blockedurls"]).then((result) => {
             if (result.blockedurls) {
                 setUrls(result.blockedurls);
             }
@@ -37,7 +37,7 @@ export default function List() {
     const handleDelete = (url) => {
         const newUrls = urls.filter((u) => u.url !== url)
         setUrls(urls.filter((u) => u.url !== url))
-        chrome.storage.sync.set({ "blockedurls": newUrls })
+        chrome.storage?.sync.set({ "blockedurls": newUrls })
         if (newUrls.length === 0) {
             setChecked(false);
         }
@@ -51,7 +51,7 @@ export default function List() {
         }
         const newUrls = [...urls, newInput];
         setUrls([...urls, newInput]);
-        chrome.storage.sync.set({ "blockedurls": newUrls }).then(() => {
+        chrome.storage?.sync.set({ "blockedurls": newUrls }).then(() => {
             setInputText("");
             setFormValidity("");
         })
