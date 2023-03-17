@@ -109,7 +109,7 @@ export default function SessionDuration() {
                                         <Dropdown.Menu>
                                             {
                                                 DURATION_UNIT_OPTIONS.map(unit =>
-                                                    <Dropdown.Item onClick={() => setDurationUnit(unit)}>
+                                                    <Dropdown.Item key={unit} onClick={() => setDurationUnit(unit)}>
                                                         {unit}
                                                     </Dropdown.Item>)
                                             }
