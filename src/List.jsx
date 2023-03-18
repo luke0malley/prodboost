@@ -92,7 +92,7 @@ export default function List() {
                     </tbody>
                 </Table>
                 <Row className="align-items-center">
-                    <Form  onSubmit={handleSubmit} onChange={handleChange}
+                    <Form  onSubmit={handleSubmit}
                         className="d-flex flex-column gap-2"
                     >
                         <Form.Label htmlFor="form-add-URL">Add URL to Block</Form.Label>
@@ -106,7 +106,8 @@ export default function List() {
                                 placeholder="www.example.com"
                                 isValid={formValidity !== "" ? formValidity === "true" : false}
                                 isInvalid={formValidity !== "" ? formValidity === "false" : false}
-                                defaultValue={inputText}
+                                value={inputText}
+                                onChange={handleChange}
                             />
                             <Button variant="success" className="col-2" type="submit">
                                 Add URL
