@@ -3,6 +3,7 @@
 body {
   /* --success: #28a745!important; */
   --bs-bg-success: #e8fff2;
+  --bs-box-shadow: 0 0 0 0.25rem rgba(0, 204, 109, 0.25);
 
   min-width: 40rem !important;
 }
@@ -37,24 +38,49 @@ label {
 .h-content {
   height: fit-content !important;
 }
-.form-check-input:checked {
-  background-color: var(--bs-success) !important;
-}
-input[type="checkbox"] {
-  /* border-color: var(--bs-success)!important; */
+.form-check-input {
   accent-color: var(--bs-success) !important;
 }
-input[type="checkbox"]:active {
+.form-check-input:active {
   border-color: var(--bs-success) !important;
 }
+.form-check-input:checked {
+  border-color: var(--bs-success) !important;
+  background-color: var(--bs-bg-success) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%2300ce6e%27/%3e%3c/svg%3e") !important;
+  /* "%2300ce6e" from^ -> "#00ce6e", which is a hexcode color */
+}
+.form-check-input:focus {
+  box-shadow: var(--bs-box-shadow) !important;
+  border-color: var(--bs-success) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%2300ce6e%27/%3e%3c/svg%3e") !important;
+  /* "%2300ce6e" from^ -> "#00ce6e", which is a hexcode color */
+}
+
+.form-control:focus{
+  border-color: var(--bs-success) !important;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  /* according to MDN, not technically supposed to override autofill colors, but this is a hack */
+
+  /* -webkit-text-fill-color: red; */
+  -webkit-box-shadow: 0 0 0px 40rem var(--bs-bg-success) inset!important;
+}
+
 .accordion {
-  /* TODO: change accordian icon color */
-  /* --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23212529%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e"); */
-  /* --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%230c63e4%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e"); */
-  --bs-accordion-border-color: var(--bs-success) !important;
-  --bs-accordion-btn-bg: var(--bs-accordion-bg) !important;
+  /* for accordian-btn-active-icon, change color via 'fill' property
+    "fill=%27%23198754%27" is URL-encoded and translates to "fill='##198754'
+   */
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 16 16%27 fill=%27%23198754%27%3e%3cpath fill-rule=%27evenodd%27 d=%27M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z%27/%3e%3c/svg%3e")!important;
+  --bs-accordion-btn-bg: none !important;
   --bs-accordion-btn-focus-border-color: var(--bs-bg-success) !important;
-  --bs-accordion-btn-focus-box-shadow: 0 0 0 0.25rem rgba(0, 206, 110, 0.25) !important;
+  --bs-accordion-btn-focus-box-shadow: var(--bs-box-shadow) !important;
   --bs-accordion-active-color: var(--bs-success) !important;
   --bs-accordion-active-bg: none !important;
+}
+.dropdown-item:active{
+  background: var(--bs-success) !important;
 }
