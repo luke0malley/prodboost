@@ -1,3 +1,15 @@
+# Known issues
+
+## Discrepencies between dev ('npm start') and production mode ('npm run build')
+
+- In production, after adding a URL to the blocked list, the URL is cleared from the text box. In dev mode, this does not happen.
+- In production, when a blocking session starts, a countdown is visible. In dev, countdown is initiated, but does not seem to continue.
+
+<br>
+<br>
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
