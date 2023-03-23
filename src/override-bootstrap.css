@@ -35,6 +35,13 @@ label {
 .table td {
   border-bottom: none !important;
 }
+.table-primary-col.w-50 {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 1px;
+  /* ^ no idea why this works, but it does */
+}
 .h-content {
   height: fit-content !important;
 }

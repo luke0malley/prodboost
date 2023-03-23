@@ -68,10 +68,11 @@ export default function List() {
                         </tr>
                     </thead>
                     <tbody>
-                        {urls.length !== 0 && urls.map((url, index) => <tr key={index}>
-                            <td>{url.url}</td>
-                            <td>{moment(url.date).fromNow()}</td>
-                            <td style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                        {urls.length !== 0 && urls.map((url, index) =>
+                        <tr key={index} className="w-100">
+                            <td className="w-50 table-primary-col">{url.url}</td>
+                            <td className="w-25">{moment(url.date).fromNow()}</td>
+                            <td className="w-25" style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip id='tooltip-bottom'>
                                         Delete
@@ -84,10 +85,11 @@ export default function List() {
                                 </OverlayTrigger>
                             </td>
                         </tr>)}
-                        {urls.length === 0 && <tr>
-                            <td >Nothing here yet...</td>
-                            <td>...</td>
-                            <td>...</td>
+                        {urls.length === 0 &&
+                        <tr className="w-100">
+                            <td className="w-50">Nothing here yet...</td>
+                            <td className="w-25">...</td>
+                            <td className="w-25">...</td>
                         </tr>}
                     </tbody>
                 </Table>
