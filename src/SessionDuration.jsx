@@ -95,10 +95,10 @@ export default function SessionDuration() {
                         </Accordion.Header>
                         <Accordion.Body>
                             <Form className="row justify-content-between" onSubmit={(e) => e.preventDefault()}>
-                                <Form.Group controlId="formSessionDuration" className="col-6 row">
-                                    <Form.Label className="mb-2">
-                                        For how long do you want to block URLs?
-                                    </Form.Label>
+                                <Form.Label className="mb-2" htmlFor="formSessionDuration">
+                                    For how long do you want to block URLs?
+                                </Form.Label>
+                                <Form.Group controlId="formSessionDuration" className="row col-6 ps-2">
                                     <Form.Control type="number" min="0" value={durationAmt} className="w-25 ms-3"
                                         onChange={(e) => setDurationAmt(e.target.value)}
                                     />
