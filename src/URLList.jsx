@@ -10,7 +10,7 @@ import Form from 'react-bootstrap/Form';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import moment from 'moment'
 
-export default function List() {
+export default function URLList() {
     const [urls, setUrls] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [inputText, setInputText] = useState("");
