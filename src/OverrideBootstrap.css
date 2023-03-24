@@ -35,12 +35,20 @@ label {
 .table td {
   border-bottom: none !important;
 }
-.table-primary-col.w-50 {
+.table-url .table-primary-col.w-50 {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 1px;
   /* ^ no idea why this works, but it does */
+}
+.table-url .table-row-expanded .table-primary-col.w-50 {
+  text-overflow: clip;
+  word-break: break-all;
+  white-space: normal;
+}
+.cursor-pointer {
+  cursor: pointer;
 }
 .h-content {
   height: fit-content !important;

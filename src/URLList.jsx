@@ -59,7 +59,7 @@ export default function URLList() {
     if (loaded) {
         return (
             <>
-                <Table hover>
+                <Table hover className="table-url">
                     <thead>
                         <tr>
                             <th scope="col">URL</th>
@@ -69,7 +69,7 @@ export default function URLList() {
                     </thead>
                     <tbody>
                         {urls.length !== 0 && urls.map((url, index) =>
-                        <tr key={index} className="w-100">
+                        <tr key={index} className="w-100 cursor-pointer" onClick={(e) => e.currentTarget.classList.toggle('table-row-expanded')}>
                             <td className="w-50 table-primary-col">{url.url}</td>
                             <td className="w-25">{moment(url.date).fromNow()}</td>
                             <td className="w-25" style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
