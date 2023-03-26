@@ -27,10 +27,7 @@ export default function URLList() {
     }, []);
     const handleChange = (e) => {
         setInputText(e.target.value);
-        if (e.target.value === "") {
-            setFormValidity("");
-        }
-        else if (formValidity === "false") {
+        if (formValidity === "false") {
             setFormValidity("true");
         }
     }
@@ -45,10 +42,6 @@ export default function URLList() {
     const handleSubmit = (e) => {
         e.preventDefault();
         const newInput = { "url": inputText, "date": moment().toISOString() };
-        if (inputText === "") {
-            setFormValidity("false");
-            return
-        }
         const newUrls = [...urls, newInput];
         setUrls([...urls, newInput]);
         chrome.storage?.sync.set({ "blockedurls": newUrls }).then(() => {
@@ -110,6 +103,7 @@ export default function URLList() {
                                 isInvalid={formValidity !== "" ? formValidity === "false" : false}
                                 value={inputText}
                                 onChange={() => {}}
+                                required
                             />
                             <Button variant="success" className="col-2" type="submit">
                                 Add URL
