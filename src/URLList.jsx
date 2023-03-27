@@ -14,8 +14,12 @@ export default function URLList() {
     const [urls, setUrls] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [inputText, setInputText] = useState("");
-    const [formValidity, setFormValidity] = useState("");
+    const [isFormValid, setIsFormValid] = useState(false);
     const [checked, setChecked] = useState(false);
+
+    // CHARS = set of valid URL characters
+    const CHARS = "[-a-zA-Z0-9@:%_\+~#=]";
+    const URL_REGEX = `^(https?:\/\/)?${CHARS}+(\.${CHARS}+)*(\/${CHARS}*)*$`;
 
     useEffect(() => {
         chrome.storage?.sync.get(["blockedurls"]).then((result) => {
@@ -27,27 +31,27 @@ export default function URLList() {
     }, []);
     const handleChange = (e) => {
         setInputText(e.target.value);
-        if (!formValidity) {
-            setFormValidity(true);
-        }
+        setIsFormValid(Boolean(e.target.value.match(URL_REGEX)));
     }
     const handleDelete = (url) => {
-        const newUrls = urls.filter((u) => u.url !== url)
-        setUrls(urls.filter((u) => u.url !== url))
-        chrome.storage?.sync.set({ "blockedurls": newUrls })
+        const newUrls = urls.filter((u) => u.url !== url);
+        setUrls(urls.filter((u) => u.url !== url));
+        chrome.storage?.sync.set({ "blockedurls": newUrls });
         if (newUrls.length === 0) {
             setChecked(false);
         }
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        const newInput = { "url": inputText, "date": moment().toISOString() };
-        const newUrls = [...urls, newInput];
-        setUrls([...urls, newInput]);
-        chrome.storage?.sync.set({ "blockedurls": newUrls }).then(() => {
-            setInputText("");
-            setFormValidity("");
-        })
+        if (isFormValid) {
+            const newInput = { "url": inputText, "date": moment().toISOString() };
+            const newUrls = [...urls, newInput];
+            setUrls([...urls, newInput]);
+            chrome.storage?.sync.set({ "blockedurls": newUrls }).then(() => {
+                setInputText("");
+                setIsFormValid(false);
+            })
+        }
     }
     if (loaded) {
         return (
@@ -99,8 +103,8 @@ export default function URLList() {
                             <Form.Control
                                 className="w-75 mb-2"
                                 placeholder="www.example.com"
-                                isValid={formValidity}
-                                isInvalid={!formValidity}
+                                isValid={inputText === "" ? false : isFormValid}
+                                isInvalid={inputText === "" ? false : !isFormValid}
                                 value={inputText}
                                 onChange={() => {}}
                                 required
