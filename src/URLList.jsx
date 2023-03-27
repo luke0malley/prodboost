@@ -27,8 +27,8 @@ export default function URLList() {
     }, []);
     const handleChange = (e) => {
         setInputText(e.target.value);
-        if (formValidity === "false") {
-            setFormValidity("true");
+        if (!formValidity) {
+            setFormValidity(true);
         }
     }
     const handleDelete = (url) => {
@@ -99,8 +99,8 @@ export default function URLList() {
                             <Form.Control
                                 className="w-75 mb-2"
                                 placeholder="www.example.com"
-                                isValid={formValidity !== "" ? formValidity === "true" : false}
-                                isInvalid={formValidity !== "" ? formValidity === "false" : false}
+                                isValid={formValidity}
+                                isInvalid={!formValidity}
                                 value={inputText}
                                 onChange={() => {}}
                                 required
