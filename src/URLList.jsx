@@ -98,33 +98,41 @@ export default function URLList() {
                         <Form.Group
                             as={Col}
                             controlId="form-add-URL"
-                            className="d-flex row justify-content-between mx-0"
                         >
-                            <Form.Control
-                                className="w-75 mb-2"
-                                placeholder="www.example.com"
-                                isValid={inputText === "" ? false : isFormValid}
-                                isInvalid={inputText === "" ? false : !isFormValid}
-                                value={inputText}
-                                onChange={() => {}}
-                                required
-                            />
-                            <Button variant="success" className="col-2" type="submit">
-                                Add URL
-                            </Button>
+                            <div className="row mx-0 justify-content-between gap-2 mb-2">
+                                <Form.Control
+                                    className="w-75"
+                                    placeholder="www.example.com"
+                                    isValid={inputText === "" ? false : isFormValid}
+                                    isInvalid={inputText === "" ? false : !isFormValid}
+                                    value={inputText}
+                                    onChange={() => {}}
+                                    required
+                                />
+                                <Button variant="success" className="col-2" type="submit">
+                                    Add URL
+                                </Button>
+                            </div>
+                            <div className="row mx-0 justify-content-between gap-2">
+                                <label
+                                    htmlFor="form-add-URL"
+                                    className="w-75 d-flex form-feedback-invalid"
+                                >
+                                    { (inputText === "" || isFormValid) ? "" : "Please enter a valid URL" }
+                                </label>
+                                <ToggleButton
+                                    id="toggle-edit"
+                                    variant="secondary"
+                                    className="col-2"
+                                    type="checkbox"
+                                    onChange={(e) => setChecked(e.currentTarget.checked)}
+                                    checked={checked}
+                                    hidden={urls.length === 0}
+                                >
+                                    Edit URLs
+                                </ToggleButton>
+                            </div>
                         </Form.Group>
-
-                        <ToggleButton
-                            id="toggle-edit"
-                            variant="secondary"
-                            className="col-2 align-self-end"
-                            type="checkbox"
-                            onChange={(e) => setChecked(e.currentTarget.checked)}
-                            checked={checked}
-                            hidden={urls.length === 0}
-                        >
-                            Edit URLs
-                        </ToggleButton>
                     </Form>
                 </Row>
             </>
