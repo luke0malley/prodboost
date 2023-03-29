@@ -99,3 +99,6 @@ input:-webkit-autofill:focus {
 .dropdown-item:active{
   background: var(--bs-success) !important;
 }
+.form-feedback-invalid {
+  color: var(--bs-danger);
+}
