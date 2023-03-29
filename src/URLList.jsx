@@ -109,7 +109,7 @@ export default function URLList() {
                                     onChange={() => {}}
                                     required
                                 />
-                                <Button variant="success" className="col-2" type="submit">
+                                <Button variant="success" className="col-2" type="submit" disabled={!isFormValid}>
                                     Add URL
                                 </Button>
                             </div>
