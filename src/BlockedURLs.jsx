@@ -6,7 +6,7 @@ export default function BlockedURLs() {
 
     return (
         <Accordion defaultActiveKey="0" flush
-            id="section-session-duration" className="mb-5"
+            id="section-blocked-urls" className="mb-5"
         >
             <Accordion.Item eventKey="0">
                 <Accordion.Header>
