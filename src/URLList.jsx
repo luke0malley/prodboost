@@ -7,8 +7,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import moment from 'moment'
+import moment from 'moment';
 
 export default function URLList() {
     const [urls, setUrls] = useState([]);
@@ -120,17 +119,15 @@ export default function URLList() {
                                 >
                                     { (inputText === "" || isFormValid) ? "" : "Please enter a valid URL" }
                                 </label>
-                                <ToggleButton
+                                <Button
                                     id="toggle-edit"
                                     variant="secondary"
                                     className="col-2"
-                                    type="checkbox"
-                                    onChange={(e) => setChecked(e.currentTarget.checked)}
-                                    checked={checked}
+                                    onClick={(e) => setChecked(!checked)}
                                     hidden={urls.length === 0}
                                 >
                                     Edit URLs
-                                </ToggleButton>
+                                </Button>
                             </div>
                         </Form.Group>
                     </Form>
