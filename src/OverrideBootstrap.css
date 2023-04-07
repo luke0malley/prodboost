@@ -71,7 +71,6 @@ label {
   background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%27-4 -4 8 8%27%3e%3ccircle r=%273%27 fill=%27%2300ce6e%27/%3e%3c/svg%3e") !important;
   /* "%2300ce6e" from^ -> "#00ce6e", which is a hexcode color */
 }
-
 .form-control:focus{
   border-color: var(--bs-success) !important;
   box-shadow: var(--bs-box-shadow) !important;
@@ -84,7 +83,6 @@ input:-webkit-autofill:focus {
   /* -webkit-text-fill-color: red; */
   -webkit-box-shadow: 0 0 0px 40rem var(--bs-bg-success) inset!important;
 }
-
 .accordion {
   /* for accordian-btn-active-icon, change color via 'fill' property
     "fill=%27%23198754%27" is URL-encoded and translates to "fill='##198754'
@@ -101,4 +99,7 @@ input:-webkit-autofill:focus {
 }
 .form-feedback-invalid {
   color: var(--bs-danger);
+}
+.nav-link:not(.active){
+  color: var(--bs-success)!important;
 }
