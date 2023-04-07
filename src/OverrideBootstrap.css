@@ -103,6 +103,14 @@ input:-webkit-autofill:focus {
   --bs-accordion-active-color: var(--bs-success) !important;
   --bs-accordion-active-bg: none !important;
 }
+/* .accordian-header-btn-text-swap .accordian-button .text-lg {
+  margin-left: auto;
+  background-color: red;
+}
+button.accordian-button::after {
+  background-color: blue;
+  margin-left: 0!important;
+} */
 
 /* tabs */
 .nav-link:not(.active){
