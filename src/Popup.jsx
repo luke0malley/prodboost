@@ -2,6 +2,7 @@ import React from 'react';
 import SessionDuration from './SessionDuration';
 import BlockedURLs from './BlockedURLs';
 import NotificationSettings from './NotificationSettings';
+import Dashboard from './Dashboard';
 import './OverrideBootstrap.css';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -20,7 +21,7 @@ export default function Popup() {
             <NotificationSettings />
         </Tab>
         <Tab eventKey="dashboard" title="Dashboard">
-            <p>This is where the dashboard goes</p>
+            <Dashboard />
         </Tab>
     </Tabs>
     );

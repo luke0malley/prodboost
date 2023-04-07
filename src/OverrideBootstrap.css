@@ -3,10 +3,14 @@
 body {
   /* --success: #28a745!important; */
   --bs-bg-success: #e8fff2;
-  --bs-box-shadow: 0 0 0 0.25rem rgba(0, 204, 109, 0.25);
+  --bs-box-shadow: 0 0 0 0.25rem #00cc6d40;
 
-  min-width: 40rem !important;
+  /* Chrome extension popups are limited to max dimensions of (w=800px, h=600px) */
+  min-width: 640px;
+  min-height: 600px;
 }
+
+/* typography */
 *,
 .btn {
   /* font-size: 0.875rem; */
@@ -16,17 +20,20 @@ h2,
 .text-lg {
   font-size: 1.5rem !important;
 }
+.text-md {
+  font-size: 1rem !important;
+}
+
+/* spacing */
 p {
   margin-inline: 0 !important;
   margin-block: 0 !important;
 }
-.gap-2 {
-  /* extend gap-2 to work on flex, not just grid */
-  gap: 0.5rem !important;
-}
 label {
   margin: 0 !important;
 }
+
+/* tables */
 .table td,
 .table th {
   border-top: none !important;
@@ -47,12 +54,8 @@ label {
   word-break: break-all;
   white-space: normal;
 }
-.cursor-pointer {
-  cursor: pointer;
-}
-.h-content {
-  height: fit-content !important;
-}
+
+/* inputs */
 .form-check-input {
   accent-color: var(--bs-success) !important;
 }
@@ -83,6 +86,12 @@ input:-webkit-autofill:focus {
   /* -webkit-text-fill-color: red; */
   -webkit-box-shadow: 0 0 0px 40rem var(--bs-bg-success) inset!important;
 }
+.dropdown-item:active{
+  background: var(--bs-success) !important;
+}
+.form-feedback-invalid {
+  color: var(--bs-danger);
+}
 .accordion {
   /* for accordian-btn-active-icon, change color via 'fill' property
     "fill=%27%23198754%27" is URL-encoded and translates to "fill='##198754'
@@ -94,12 +103,28 @@ input:-webkit-autofill:focus {
   --bs-accordion-active-color: var(--bs-success) !important;
   --bs-accordion-active-bg: none !important;
 }
-.dropdown-item:active{
-  background: var(--bs-success) !important;
-}
-.form-feedback-invalid {
-  color: var(--bs-danger);
-}
+
+/* tabs */
 .nav-link:not(.active){
   color: var(--bs-success)!important;
+}
+
+/* bar chart (label) */
+g.recharts-cartesian-axis-tick {
+  display: block;
+  width: 25px;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+/* additional classes */
+.gap-2 {
+  /* extend gap-2 to work on flex, not just grid */
+  gap: 0.5rem !important;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.h-content {
+  height: fit-content !important;
 }

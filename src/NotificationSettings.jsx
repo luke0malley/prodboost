@@ -15,7 +15,7 @@ export default function NotificationSettings() {
 
     return (
         <Accordion defaultActiveKey="0" flush
-            id="section-notification-settings" className="mb-5"
+            id="section-notification-settings" className="mb-2"
         >
             <Accordion.Item eventKey="0">
                 <Accordion.Header>
