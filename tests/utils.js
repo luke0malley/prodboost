@@ -3,22 +3,40 @@
 import { chromium } from "@playwright/test";
 import path from "path";
 
-export const EXTENSION_ID = "alkbbhmbhgomddkieknclnjmhlgdgeig";
-export const EXTENSION_URL = `chrome-extension://${EXTENSION_ID}/index.html`;
-
 const pathToExtension = path.join(__dirname, '../build');
 const userDataDir = '';
 
-export const createBrowserContext = async () => {
+const createBrowserContext = async (headless) => {
+  // create special browser context where our extension IS allowed
+  // (extensions disallowed by default)
+
+  const args = [
+    `--disable-extensions-except=${pathToExtension}`,
+    `--load-extension=${pathToExtension}`
+  ];
+  if (headless) {
+    args.push('--headless=new');
+  }
+
   return await chromium.launchPersistentContext(
     userDataDir,
     {
-      devtools: true,
-      headless: false,
-      args: [
-        `--disable-extensions-except=${pathToExtension}`,
-        `--load-extension=${pathToExtension}`
-      ],
+      headless: headless,
+      args: args
     }
   );
+}
+
+const EXTENSION_ID = "alkbbhmbhgomddkieknclnjmhlgdgeig";
+const EXTENSION_URL = `chrome-extension://${EXTENSION_ID}/index.html`;
+
+export const getPageFromContext = async (headless=true) => {
+  // "headless": if true, run test within headless/GUI-less browser context
+
+  // create browser context and render page for extension
+  const browserContext = await createBrowserContext(headless);
+  const page = await browserContext.newPage();
+  await page.goto(EXTENSION_URL);
+  await page.bringToFront();
+  return page;
 }

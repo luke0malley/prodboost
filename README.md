@@ -87,7 +87,11 @@ tldr:
 Tests are in the tests directory. To run them (in development)
 1. start the program in development mode with `npm start`
 2. make sure you are in the tests/ folder
-3. run `npx playwright test` to run all tests in tests/
+3. run `npx playwright test` to run all tests in tests/, OR
+    - to run individual tests, find the filename containing your test and the line number on which the test begins.
+    - use the command format: `npx playwright test {filename}:{line_num} --project=chromium`
+    - for example, if a line exists on line 240 in BlockedURLs.spec.js, you would run `npx playwright test BlockedURLs.spec.js:240 --project=chromium`
+    - NOTE: for some reason, sometimes running multiple tests results in a timeout error, even though the tests run individually without issue
 
 Tests are located in the tests/ directory.
 Inside that directory, you can run several commands:
