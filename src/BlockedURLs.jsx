@@ -3,7 +3,6 @@ import URLList from './URLList';
 import Accordion from 'react-bootstrap/Accordion';
 
 export default function BlockedURLs() {
-
     return (
         <Accordion defaultActiveKey="0" flush
             id="section-blocked-urls" className="mb-5"

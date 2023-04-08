@@ -1,6 +1,9 @@
+/*global chrome*/
 import { React, useEffect, useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Collapse from 'react-bootstrap/Collapse';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
@@ -31,20 +34,37 @@ export default function TaskLists() {
     // const [lists, setLists] = useState([]);
     const [editingLists, setEditingLists] = useState(false);
     const [listFormInput, setlistFormInput] = useState("");
-    const [lists, setLists] = useState(initialListState);
+    const [lists, setLists] = useState({});
 
     useEffect(() => {
-        if (Object.keys(lists).length === 0) {
-            setEditingLists(true);
-        }
+        chrome.storage?.sync.get(["taskLists"]).then((result) => {
+            if (result["taskLists"]) {
+                setLists(result["taskLists"]);
+            }
+            if (Object.keys(result["taskLists"]).length === 0) {
+                setEditingLists(true);
+            }
+        })
+    }, []);
+
+    useEffect(() => {
+        chrome.storage?.sync.set({ "taskLists": lists });
     }, [lists]);
+
     const createNewTaskList = () => {
         setEditingLists(!editingLists);
     }
 
     const editTaskList = (listName) => {
-        // TODO
-        console.log(`edit-tasklist button clicked for list '${listName}'`);
+        setLists((prevLists) => {
+            return {
+                ...prevLists,
+                [listName]: {
+                    ...prevLists[listName],
+                    ["editing"]: !prevLists[listName]["editing"]
+                }
+            }
+        })
     }
 
     const updateTaskStatus = (listName, taskName, prevTaskStatus) => {
@@ -81,6 +101,25 @@ export default function TaskLists() {
         })
         setEditingLists(false);
         setlistFormInput("");
+    }
+
+    const handleListDelete = (listName) => {
+        setLists((prevLists) => {
+            const newLists = { ...prevLists };
+            delete newLists[listName];
+            if (Object.keys(newLists).length === 0) {
+                setEditingLists(true);
+            }
+            return newLists;
+        });
+    }
+
+    const handleListTaskDelete = (listName, taskName) => {
+        setLists((prevLists) => {
+            const newLists = { ...prevLists };
+            delete newLists[listName]["tasks"][taskName];
+            return newLists;
+        })
     }
 
     return (
@@ -143,6 +182,19 @@ export default function TaskLists() {
                                     <span className="text-lg">
                                         {listName}
                                     </span>
+                                    <div className="" style={listEntry[1]["editing"] ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                                        <OverlayTrigger
+                                            placement='bottom' overlay={
+                                                <Tooltip id='tooltip-bottom'>
+                                                    Delete
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <Button variant="danger" size="sm" onClick={() => handleListDelete(listName)}>
+                                                <i className="bi bi-trash" text-></i>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </div>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                     {(Object.keys(tasks).length)
@@ -155,7 +207,7 @@ export default function TaskLists() {
                                                 const taskKey = "task " + inputKey;
 
                                                 return (
-                                                    <div className="mb-1" key={taskKey}>
+                                                    <div className="mb-1 d-flex" key={taskKey}>
                                                         {/* Note: 'id' assumes that no two tasks in a given list share a name */}
                                                         <input type="checkbox" checked={isTaskDone}
                                                             id={inputKey} className="mx-2"
@@ -166,6 +218,19 @@ export default function TaskLists() {
                                                         >
                                                             {taskName}
                                                         </label>
+                                                        <div className="" style={listEntry[1]["editing"] ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                                                            <OverlayTrigger
+                                                                placement='bottom' overlay={
+                                                                    <Tooltip id='tooltip-bottom'>
+                                                                        Delete
+                                                                    </Tooltip>
+                                                                }
+                                                            >
+                                                                <Button variant="danger" size="sm" onClick={() => handleListTaskDelete(listName, taskName)}>
+                                                                    <i className="bi bi-trash" text-></i>
+                                                                </Button>
+                                                            </OverlayTrigger>
+                                                        </div>
                                                         <br />
                                                     </div>)
                                             })}

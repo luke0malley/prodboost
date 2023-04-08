@@ -7,14 +7,13 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import moment from 'moment';
 
 export default function URLList() {
     const [urls, setUrls] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const [inputText, setInputText] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
-    const [checked, setChecked] = useState(false);
+    const [editing, setEditing] = useState(false);
 
     // CHARS = set of valid URL characters
     const CHARS = "[-a-zA-Z0-9@:%_\+~#=]";
@@ -33,13 +32,13 @@ export default function URLList() {
         setUrls(urls.filter((u) => u.url !== url));
         chrome.storage?.sync.set({ "blockedurls": newUrls });
         if (newUrls.length === 0) {
-            setChecked(false);
+            setEditing(false);
         }
     }
     const handleSubmit = (e) => {
         e.preventDefault();
         if (isFormValid) {
-            const newInput = { "url": inputText, "date": moment().toISOString() };
+            const newInput = { "url": inputText };
             const newUrls = [...urls, newInput];
             setUrls([...urls, newInput]);
             chrome.storage?.sync.set({ "blockedurls": newUrls }).then(() => {
@@ -51,21 +50,21 @@ export default function URLList() {
     if (loaded) {
         return (
             <>
-                <Table hover className="table-url">
+                {urls.length !== 0 && <Table className="table-url">
                     <thead>
                         <tr>
                             <th scope="col">URL</th>
-                            <th scope="col">Time Added</th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {urls.length !== 0 && urls.map((url, index) =>
-                            <tr key={index} className="w-100 cursor-pointer" onClick={(e) => e.currentTarget.classList.toggle('table-row-expanded')}>
+                        {urls.map((url, index) =>
+                            <tr key={index} className="w-100">
                                 <td className="w-50 table-primary-col">{url.url}</td>
-                                <td className="w-25">{moment(url.date).fromNow()}</td>
+                                <td className="w-25"></td>
                                 <td className="w-25">
-                                    <div style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                                    <div style={editing ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                                         <OverlayTrigger
                                             placement='bottom' overlay={
                                                 <Tooltip id='tooltip-bottom'>
@@ -74,20 +73,15 @@ export default function URLList() {
                                             }
                                         >
                                             <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
-                                                <i className="bi-trash-fill"></i>
+                                                <i className="bi bi-trash" text-></i>
                                             </Button>
                                         </OverlayTrigger>
                                     </div>
                                 </td>
                             </tr>)}
-                        {urls.length === 0 &&
-                            <tr className="w-100">
-                                <td className="w-50">Nothing here yet...</td>
-                                <td className="w-25">...</td>
-                                <td className="w-25">...</td>
-                            </tr>}
                     </tbody>
-                </Table>
+                </Table>}
+                {urls.length === 0 && <></>}
                 <Row className="align-items-center">
                     <Form onSubmit={handleSubmit} onChange={(e) => {
                         setInputText(e.target.value);
@@ -125,7 +119,7 @@ export default function URLList() {
                                     id="toggle-edit"
                                     variant="secondary"
                                     className="col-2"
-                                    onClick={(e) => setChecked(!checked)}
+                                    onClick={(e) => setEditing(!editing)}
                                     hidden={urls.length === 0}
                                 >
                                     Edit URLs

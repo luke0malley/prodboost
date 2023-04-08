@@ -82,11 +82,13 @@ export default function SessionDuration() {
             <>
                 {
                     blockingSession.blocking &&
-                    <Alert variant="success">
-                        Blocking URLs for {getBlockingTime()}
+                    <Alert variant='light'>
+                        <p className="text-success text-center">
+                            Blocking URLs for {getBlockingTime()}
+                        </p>
                     </Alert>
                 }
-                <Accordion defaultActiveKey="0" flush
+                <Accordion flush
                     id="section-session-duration" className="mb-5"
                 >
                     <Accordion.Item eventKey="0">
