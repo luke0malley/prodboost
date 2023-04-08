@@ -28,10 +28,6 @@ export default function URLList() {
         });
         setLoaded(true);
     }, []);
-    const handleChange = (e) => {
-        setInputText(e.target.value);
-        setIsFormValid(Boolean(e.target.value.match(URL_REGEX)));
-    }
     const handleDelete = (url) => {
         const newUrls = urls.filter((u) => u.url !== url);
         setUrls(urls.filter((u) => u.url !== url));
@@ -65,32 +61,38 @@ export default function URLList() {
                     </thead>
                     <tbody>
                         {urls.length !== 0 && urls.map((url, index) =>
-                        <tr key={index} className="w-100 cursor-pointer" onClick={(e) => e.currentTarget.classList.toggle('table-row-expanded')}>
-                            <td className="w-50 table-primary-col">{url.url}</td>
-                            <td className="w-25">{moment(url.date).fromNow()}</td>
-                            <td className="w-25" style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-                                <OverlayTrigger placement='bottom' overlay={
-                                    <Tooltip id='tooltip-bottom'>
-                                        Delete
-                                    </Tooltip>
-                                }
-                                >
-                                    <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
-                                        <i className="bi-trash-fill"></i>
-                                    </Button>
-                                </OverlayTrigger>
-                            </td>
-                        </tr>)}
+                            <tr key={index} className="w-100 cursor-pointer" onClick={(e) => e.currentTarget.classList.toggle('table-row-expanded')}>
+                                <td className="w-50 table-primary-col">{url.url}</td>
+                                <td className="w-25">{moment(url.date).fromNow()}</td>
+                                <td className="w-25">
+                                    <div style={checked ? { visibility: 'visible' } : { visibility: 'hidden' }}>
+                                        <OverlayTrigger
+                                            placement='bottom' overlay={
+                                                <Tooltip id='tooltip-bottom'>
+                                                    Delete
+                                                </Tooltip>
+                                            }
+                                        >
+                                            <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
+                                                <i className="bi-trash-fill"></i>
+                                            </Button>
+                                        </OverlayTrigger>
+                                    </div>
+                                </td>
+                            </tr>)}
                         {urls.length === 0 &&
-                        <tr className="w-100">
-                            <td className="w-50">Nothing here yet...</td>
-                            <td className="w-25">...</td>
-                            <td className="w-25">...</td>
-                        </tr>}
+                            <tr className="w-100">
+                                <td className="w-50">Nothing here yet...</td>
+                                <td className="w-25">...</td>
+                                <td className="w-25">...</td>
+                            </tr>}
                     </tbody>
                 </Table>
                 <Row className="align-items-center">
-                    <Form hasValidation onSubmit={handleSubmit} onChange={handleChange}
+                    <Form onSubmit={handleSubmit} onChange={(e) => {
+                        setInputText(e.target.value);
+                        setIsFormValid(Boolean(e.target.value.match(URL_REGEX)));
+                    }}
                         className="d-flex flex-column gap-2"
                     >
                         <Form.Label htmlFor="form-add-URL">Add URL to Block</Form.Label>
@@ -105,7 +107,7 @@ export default function URLList() {
                                     isValid={inputText === "" ? false : isFormValid}
                                     isInvalid={inputText === "" ? false : !isFormValid}
                                     value={inputText}
-                                    onChange={() => {}}
+                                    onChange={() => { }}
                                     required
                                 />
                                 <Button variant="success" className="col-2" type="submit" disabled={!isFormValid}>
@@ -117,7 +119,7 @@ export default function URLList() {
                                     htmlFor="form-add-URL"
                                     className="w-75 d-flex form-feedback-invalid"
                                 >
-                                    { (inputText === "" || isFormValid) ? "" : "Please enter a valid URL" }
+                                    {(inputText === "" || isFormValid) ? "" : "Please enter a valid URL"}
                                 </label>
                                 <Button
                                     id="toggle-edit"
