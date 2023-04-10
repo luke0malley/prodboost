@@ -8,6 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import moment from 'moment';
 
 export default function SessionDuration() {
+
     const DURATION_UNIT_OPTIONS = ['minute(s)', 'hour(s)', 'day(s)']
     const [durationAmt, setDurationAmt] = useState(0);
     const [durationUnit, setDurationUnit] = useState(DURATION_UNIT_OPTIONS[0]);
@@ -21,16 +22,18 @@ export default function SessionDuration() {
                 setInterval(updateBlockingTime, 1000);
             }
             else {
-                chrome.storage?.sync.set({ "blockingsession": { blocking: false } })
                 setBlockingSession({ blocking: false });
             }
         })
         setLoaded(true);
     }, []);
 
+    useEffect(() => {
+        chrome.storage?.sync.set({ "blockingsession": blockingSession })
+    }, [blockingSession])
+
     const handleBlockingClick = () => {
         if (blockingSession.blocking) {
-            chrome.storage?.sync.set({ "blockingsession": { blocking: false } })
             setBlockingSession({ blocking: false });
         }
         else {
@@ -38,7 +41,6 @@ export default function SessionDuration() {
                 return;
             }
             setInterval(updateBlockingTime, 1000);
-            chrome.storage?.sync.set({ "blockingsession": { blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() } })
             setBlockingSession({ blocking: true, blocking_time: moment().add(durationAmt, durationUnit[0]).toISOString() })
         }
     }
@@ -47,10 +49,8 @@ export default function SessionDuration() {
         chrome.storage?.sync.get(["blockingsession"]).then((result) => {
             if (moment() >= moment(result.blockingsession.blocking_time)) {
                 setBlockingSession({ blocking: false });
-                chrome.storage?.sync.set({ "blockingsession": { blocking: false } });
             }
             else {
-                chrome.storage?.sync.set({ "blockingsession": result.blockingsession })
                 setBlockingSession(result.blockingsession);
             }
         })

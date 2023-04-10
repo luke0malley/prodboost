@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 
-const initialListState = {
+/* const initialListState = {
     "Task List One": {
         "adding": false, "addFormInput": "", "editing": false, "tasks":
         {
@@ -28,10 +28,10 @@ const initialListState = {
             "Another task": false,
         }
     },
-}
+}*/
 
 export default function TaskLists() {
-    // const [lists, setLists] = useState([]);
+
     const [editingLists, setEditingLists] = useState(false);
     const [listFormInput, setlistFormInput] = useState("");
     const [lists, setLists] = useState({});
@@ -68,7 +68,6 @@ export default function TaskLists() {
     }
 
     const updateTaskStatus = (listName, taskName, prevTaskStatus) => {
-        console.log(`updateTaskStatus() called for task '${taskName}' in list '${listName}'`)
         setLists((prevLists) => {
             return {
                 ...prevLists,
@@ -119,6 +118,47 @@ export default function TaskLists() {
             const newLists = { ...prevLists };
             delete newLists[listName]["tasks"][taskName];
             return newLists;
+        })
+    }
+
+    const handleListTaskAdd = (listName) => {
+        setLists((prevLists) => {
+            return {
+                ...prevLists,
+                [listName]: {
+                    ["tasks"]: {
+                        ...prevLists[listName]["tasks"],
+                        [prevLists[listName]["addFormInput"]]: false
+                    },
+                    ["addFormInput"]: "",
+                    ["adding"]: false,
+                    ["editing"]: false
+                }
+            }
+        })
+    }
+
+    const handleListAddTaskClicked = (listName) => {
+        setLists((prevLists) => {
+            return {
+                ...prevLists,
+                [listName]: {
+                    ...prevLists[listName],
+                    ["adding"]: !prevLists[listName]["adding"]
+                }
+            }
+        })
+    }
+
+    const handleListAddTaskInputChange = (listName, value) => {
+        setLists((prevLists) => {
+            return {
+                ...prevLists,
+                [listName]: {
+                    ...prevLists[listName],
+                    ["addFormInput"]: value,
+                }
+            }
         })
     }
 
@@ -243,17 +283,8 @@ export default function TaskLists() {
                                     <div role="button"
                                         id="create-new-task-button"
                                         className="d-flex align-items-center gap-2"
-                                        onClick={() => {
-                                            setLists((prevLists) => {
-                                                return {
-                                                    ...prevLists,
-                                                    [listName]: {
-                                                        ...prevLists[listName],
-                                                        ["adding"]: !prevLists[listName]["adding"]
-                                                    }
-                                                }
-                                            })
-                                        }}
+                                        onClick={() =>
+                                            handleListAddTaskClicked(listName)}
                                     >
                                         <i className="bi bi-plus text-lg text-success" />
                                         <span className="text-md">
@@ -264,20 +295,7 @@ export default function TaskLists() {
                                         <Row className="align-items-center">
                                             <Form onSubmit={(submitEvent) => {
                                                 submitEvent.preventDefault();
-                                                setLists((prevLists) => {
-                                                    return {
-                                                        ...prevLists,
-                                                        [listName]: {
-                                                            ["tasks"]: {
-                                                                ...prevLists[listName]["tasks"],
-                                                                [prevLists[listName]["addFormInput"]]: false
-                                                            },
-                                                            ["addFormInput"]: "",
-                                                            ["adding"]: false,
-                                                            ["editing"]: false
-                                                        }
-                                                    }
-                                                })
+                                                handleListTaskAdd(listName);
                                             }} className="d-flex flex-column gap-2">
                                                 <Form.Label htmlFor="form-add-list">Add New Task</Form.Label>
                                                 <Form.Group
@@ -289,15 +307,7 @@ export default function TaskLists() {
                                                             className="w-75"
                                                             value={listEntry[1]["addFormInput"]}
                                                             onChange={(e) => {
-                                                                setLists((prevLists) => {
-                                                                    return {
-                                                                        ...prevLists,
-                                                                        [listName]: {
-                                                                            ...prevLists[listName],
-                                                                            ["addFormInput"]: e.target.value,
-                                                                        }
-                                                                    }
-                                                                })
+                                                                handleListAddTaskInputChange(listName, e.target.value);
                                                             }}
                                                             required
                                                         />

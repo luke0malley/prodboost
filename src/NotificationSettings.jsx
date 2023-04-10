@@ -5,7 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Accordion from 'react-bootstrap/Accordion';
 
 export default function NotificationSettings() {
+
     const [notificationSettings, setNotificationSettings] = useState({});
+
     useEffect(() => {
         chrome.storage?.sync.get(["notificationsettings"]).then((result) => {
             if (result.notificationsettings) {
@@ -13,9 +15,6 @@ export default function NotificationSettings() {
             }
             else {
                 setNotificationSettings({
-                    'session-finish': {
-                        description: 'blocked session is finished', isOn: false
-                    },
                     'idle': {
                         description: 'I have been idle for too long', isOn: false
                     }
@@ -23,9 +22,20 @@ export default function NotificationSettings() {
             }
         })
     }, []);
+
     useEffect(() => {
         chrome.storage?.sync.set({ "notificationsettings": notificationSettings })
     }, [notificationSettings])
+
+    const handleNotificationSwitchChange = (settingName) => {
+        setNotificationSettings({
+            ...notificationSettings,
+            [settingName]: {
+                ...notificationSettings[settingName],
+                isOn: !notificationSettings[settingName].isOn
+            }
+        });
+    }
 
     return (
         <Accordion flush
@@ -52,15 +62,7 @@ export default function NotificationSettings() {
                                                 id={`switch-${settingName}`}
                                                 label={notificationSettings[settingName].description}
                                                 className="my-1"
-                                                onChange={() => {
-                                                    setNotificationSettings({
-                                                        ...notificationSettings,
-                                                        [settingName]: {
-                                                            ...notificationSettings[settingName],
-                                                            isOn: !notificationSettings[settingName].isOn
-                                                        }
-                                                    });
-                                                }}
+                                                onChange={() => handleNotificationSwitchChange(settingName)}
                                                 checked={notificationSettings[settingName].isOn}
                                             />
                                         </Form>
