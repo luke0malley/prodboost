@@ -164,7 +164,7 @@ export default function TaskLists() {
 
     return (
         <>
-            <div className="d-flex justify-content-end mb-2">
+            <div className="d-flex justify-content-end mb-2 px-4">
                 <div role="button"
                     id="create-new-tasklist-button"
                     className="d-flex align-items-center gap-2"
@@ -176,7 +176,7 @@ export default function TaskLists() {
                     <i className="bi bi-plus text-lg text-success" />
                 </div>
             </div>
-            <Collapse in={editingLists}>
+            <Collapse in={editingLists} className="px-4">
                 <Row className="align-items-center">
                     <Form onSubmit={(submitEvent) => { handleListFormSubmit(submitEvent) }} className="d-flex flex-column gap-2">
                         <Form.Label htmlFor="form-add-list">Add New List</Form.Label>
@@ -230,7 +230,7 @@ export default function TaskLists() {
                                                 </Tooltip>
                                             }
                                         >
-                                            <Button variant="danger" size="sm" onClick={() => handleListDelete(listName)}>
+                                            <Button variant="danger" size="sm" className="ms-2" onClick={() => handleListDelete(listName)}>
                                                 <i className="bi bi-trash" text-></i>
                                             </Button>
                                         </OverlayTrigger>
@@ -253,7 +253,7 @@ export default function TaskLists() {
                                                             id={inputKey} className="mx-2"
                                                             onChange={() => updateTaskStatus(listName, taskName, isTaskDone)}
                                                         />
-                                                        <label type="checkbox" className="text-md"
+                                                        <label type="checkbox" className="text-md d-flex align-items-center"
                                                             htmlFor={inputKey}
                                                         >
                                                             {taskName}
@@ -266,7 +266,7 @@ export default function TaskLists() {
                                                                     </Tooltip>
                                                                 }
                                                             >
-                                                                <Button variant="danger" size="sm" onClick={() => handleListTaskDelete(listName, taskName)}>
+                                                                <Button variant="danger" size="sm" className="ms-2" onClick={() => handleListTaskDelete(listName, taskName)}>
                                                                     <i className="bi bi-trash" text-></i>
                                                                 </Button>
                                                             </OverlayTrigger>
