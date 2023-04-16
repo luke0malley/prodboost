@@ -11,22 +11,22 @@ import Tabs from 'react-bootstrap/Tabs';
 export default function Popup() {
 
     return (
-    <Tabs
-        defaultActiveKey="block-urls"
-        id="popup-tabs"
-        className="mb-5"
-    >
-        <Tab eventKey="block-urls" title="Block URLs">
-            <SessionDuration />
-            <BlockedURLs />
-            <NotificationSettings />
-        </Tab>
-        <Tab eventKey="tasklist" title="Task Lists">
-            <TaskLists />
-        </Tab>
-        <Tab eventKey="dashboard" title="Dashboard">
-            <Dashboard />
-        </Tab>
-    </Tabs>
+        <Tabs
+            defaultActiveKey="block-urls"
+            id="popup-tabs"
+            className="mb-5"
+        >
+            <Tab eventKey="block-urls" title="Block URLs">
+                <SessionDuration />
+                <BlockedURLs />
+                <NotificationSettings />
+            </Tab>
+            <Tab eventKey="tasklist" title="Task Lists">
+                <TaskLists />
+            </Tab>
+            <Tab eventKey="insights" title="Insights">
+                <Dashboard />
+            </Tab>
+        </Tabs>
     );
 }
