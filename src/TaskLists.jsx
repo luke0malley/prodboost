@@ -214,7 +214,7 @@ export default function TaskLists() {
                     const accordianKey = `${listName} Accordian`
 
                     return (
-                        <Accordion flush
+                        <Accordion flush defaultActiveKey="0"
                             key={accordianKey} className="mb-2"
                         >
                             <Accordion.Item eventKey={index} key={listName}>
