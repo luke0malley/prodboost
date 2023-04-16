@@ -1,6 +1,5 @@
 /*global chrome*/
 import React, { useState, useEffect } from 'react';
-import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -9,7 +8,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 export default function URLList() {
-
     const [urls, setUrls] = useState([]);
     const [inputText, setInputText] = useState("");
     const [isFormValid, setIsFormValid] = useState(false);
@@ -17,7 +15,7 @@ export default function URLList() {
 
     // CHARS = set of valid URL characters
     const CHARS = "[-a-zA-Z0-9@:%_\+~#=]";
-    const URL_REGEX = `^(https?:\/\/)?${CHARS}+(\.${CHARS}+)*(\/${CHARS}*)*$`;
+    const URL_REGEX = RegExp(`^(https?:\/\/)?${CHARS}+(\.${CHARS}+)*(\/${CHARS}*)*$`);
 
     useEffect(() => {
         chrome.storage?.sync.get(["blockedurls"]).then((result) => {
@@ -48,39 +46,31 @@ export default function URLList() {
 
     return (
         <>
-            {urls.length !== 0 && <Table className="table-url">
-                <thead>
-                    <tr>
-                        <th scope="col">URL</th>
-                        <th scope="col"></th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {urls.map((url, index) =>
-                        <tr key={index} className="w-100">
-                            <td className="w-50 table-primary-col">{url.url}</td>
-                            <td className="w-25"></td>
-                            <td className="w-25">
-                                <div style={editing ? { visibility: 'visible' } : { visibility: 'hidden' }}>
-                                    <OverlayTrigger
-                                        placement='bottom' overlay={
-                                            <Tooltip id='tooltip-bottom'>
-                                                Delete
-                                            </Tooltip>
-                                        }
-                                    >
-                                        <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
-                                            <i className="bi bi-trash" text-></i>
-                                        </Button>
-                                    </OverlayTrigger>
-                                </div>
-                            </td>
-                        </tr>)}
-                </tbody>
-            </Table>}
+            {urls.length !== 0 &&
+                urls.map((url, index) =>
+                    <div className="hover-background-color d-flex justify-content-between align-items-center mb-1 px-2" key={"blocked-url-" + url.url}>
+                        {/* was deleted: click URL row to expand URL */}
+                        <div
+                            className="cursor-pointer overflow-text-hide w-75"
+                            onClick={(e) => e.currentTarget.classList.toggle('overflow-text-expand')}
+                        >{url.url}</div>
+                        <div style={{ visibility: editing ? 'visible' : 'hidden' }}>
+                            <OverlayTrigger
+                                placement='bottom' overlay={
+                                    <Tooltip>Delete</Tooltip>
+                                }
+                            >
+                                <Button variant="danger" size="sm" onClick={() => handleDelete(url.url)}>
+                                    <i className="bi bi-trash"></i>
+                                </Button>
+                            </OverlayTrigger>
+                        </div>
+                    </div>
+                )
+            }
             {urls.length === 0 && <p>No URLs have been added.</p>}
-            <Row className="align-items-center">
+
+            <Row className="align-items-center pt-4">
                 <Form onSubmit={handleSubmit} onChange={(e) => {
                     setInputText(e.target.value);
                     setIsFormValid(Boolean(e.target.value.match(URL_REGEX)));
