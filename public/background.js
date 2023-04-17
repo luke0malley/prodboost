@@ -13,7 +13,12 @@ chrome.storage.onChanged.addListener((changes, _) => {
         });
         handleSessionEnd(oldValue);
         clearInterval(browsingInterval);
-      } else if (oldValue.blocking !== newValue.blocking) {
+      } else if (
+        (newValue.blocking && !oldValue) ||
+        (newValue.blocking &&
+          oldValue &&
+          oldValue.blocking !== newValue.blocking)
+      ) {
         chrome.notifications.create(null, {
           title: "Blocking Session Started!",
           message: "Now blocking URLs.",
