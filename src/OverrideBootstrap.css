@@ -6,8 +6,9 @@ body {
   --bs-box-shadow: 0 0 0 0.25rem #00cc6d40;
 
   /* Chrome extension popups are limited to max dimensions of (w=800px, h=600px) */
-  min-width: 640px;
-  min-height: 600px;
+  width: 640px;
+  min-height: 601px;
+  /* height of 601px so ALL tabs have visible sidebar */
 }
 
 /* typography */
@@ -53,6 +54,23 @@ label {
   text-overflow: clip;
   word-break: break-all;
   white-space: normal;
+}
+.overflow-text-hide {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  /* max-width: 1px; */
+}
+.overflow-text-expand {
+  text-overflow: clip;
+  word-break: break-all;
+  white-space: normal;
+}
+.hover-background-color {
+  background-color: none;
+}
+.hover-background-color:hover {
+  background: var(--bs-bg-success);
 }
 
 /* inputs */
@@ -129,6 +147,10 @@ g.recharts-cartesian-axis-tick {
 .gap-2 {
   /* extend gap-2 to work on flex, not just grid */
   gap: 0.5rem !important;
+}
+.mx-n2 {
+  margin-left: -0.5rem;
+  margin-right: -0.5rem;
 }
 .cursor-pointer {
   cursor: pointer;

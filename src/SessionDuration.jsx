@@ -80,7 +80,7 @@ export default function SessionDuration() {
                     </p>
                 </Alert>
             }
-            <Accordion flush
+            <Accordion flush defaultActiveKey="0"
                 id="section-session-duration" className="mb-5"
             >
                 <Accordion.Item eventKey="0">
