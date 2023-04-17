@@ -247,8 +247,9 @@ export default function TaskLists() {
                                                 const taskKey = "task " + inputKey;
 
                                                 return (
-                                                    <div className="mb-1 d-flex" key={taskKey}>
+                                                    <div className="mb-1 d-flex justify-content-between" key={taskKey}>
                                                         {/* Note: 'id' assumes that no two tasks in a given list share a name */}
+                                                        <div className="d-flex">
                                                         <input type="checkbox" checked={isTaskDone}
                                                             id={inputKey} className="mx-2"
                                                             onChange={() => updateTaskStatus(listName, taskName, isTaskDone)}
@@ -258,6 +259,7 @@ export default function TaskLists() {
                                                         >
                                                             {taskName}
                                                         </label>
+                                                        </div>
                                                         <div className="" style={listEntry[1]["editing"] ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                                                             <OverlayTrigger
                                                                 placement='bottom' overlay={
@@ -271,8 +273,8 @@ export default function TaskLists() {
                                                                 </Button>
                                                             </OverlayTrigger>
                                                         </div>
-                                                        <br />
-                                                    </div>)
+                                                    </div>
+                                                )
                                             })}
                                         </>
                                         :
