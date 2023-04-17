@@ -16,7 +16,7 @@ export default function NotificationSettings() {
             else {
                 setNotificationSettings({
                     'idle': {
-                        description: 'I have been idle for too long', isOn: false
+                        description: 'I have been idle for too long', isOn: true
                     }
                 });
             }

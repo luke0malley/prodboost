@@ -231,7 +231,7 @@ export default function TaskLists() {
                                             }
                                         >
                                             <Button variant="danger" size="sm" className="ms-2" onClick={() => handleListDelete(listName)}>
-                                                <i className="bi bi-trash" text-></i>
+                                                <i className="bi bi-trash"></i>
                                             </Button>
                                         </OverlayTrigger>
                                     </div>

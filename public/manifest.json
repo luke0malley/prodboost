@@ -7,7 +7,7 @@
     "default_title": "Productive",
     "default_popup": "index.html"
   },
-  "permissions": ["storage", "tabs", "notifications"],
+  "permissions": ["storage", "tabs", "notifications", "idle"],
   "background": {
     "service_worker": "background.js"
   },
