@@ -26,10 +26,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### For testing see tests/README.md
 
 ### `npm run build`
 
@@ -80,47 +77,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# Testing with Playwright
-
-tldr:
-Tests are in the tests directory. To run them (in development)
-1. start the program in development mode with `npm start`
-2. make sure you are in the tests/ folder
-3. run `npx playwright test` to run all tests in tests/, OR
-    - to run individual tests, find the filename containing your test and the line number on which the test begins.
-    - use the command format: `npx playwright test {filename}:{line_num} --project=chromium`
-    - for example, if a line exists on line 240 in BlockedURLs.spec.js, you would run `npx playwright test BlockedURLs.spec.js:240 --project=chromium`
-    - NOTE: for some reason, sometimes running multiple tests results in a timeout error, even though the tests run individually without issue
-
-Tests are located in the tests/ directory.
-Inside that directory, you can run several commands:
-
-  npx playwright test
-    Runs the end-to-end tests.
-
-  npx playwright test --ui
-    Starts the interactive UI mode.
-
-  npx playwright test --project=chromium
-    Runs the tests only on Desktop Chrome.
-
-  npx playwright test example
-    Runs the tests in a specific file.
-
-  npx playwright test --debug
-    Runs the tests in debug mode.
-
-  npx playwright codegen
-    Auto generate tests with Codegen.
-
-We suggest that you begin by typing:
-
-    npx playwright test
-
-And check out the following files:
-  - .\tests\example.spec.js - Example end-to-end test
-  - .\tests-examples\demo-todo-app.spec.js - Demo Todo App end-to-end tests
-  - .\playwright.config.js - Playwright Test configuration
-
-Visit https://playwright.dev/docs/intro for more information. ✨

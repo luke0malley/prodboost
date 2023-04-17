@@ -163,7 +163,7 @@ export default function TaskLists() {
     }
 
     return (
-        <>
+        <div>
             <div className="d-flex justify-content-end mb-2 px-4">
                 <div role="button"
                     id="create-new-tasklist-button"
@@ -336,6 +336,6 @@ export default function TaskLists() {
                         </Accordion>
                     )
                 })}
-        </>
+        </div>
     );
 }

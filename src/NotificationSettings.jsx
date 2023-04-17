@@ -39,7 +39,7 @@ export default function NotificationSettings() {
 
     return (
         <Accordion flush defaultActiveKey="0"
-            id="section-session-duration" className="mb-5"
+            id="section-notification-settings" className="mb-5"
         >
             <Accordion.Item eventKey="0">
                 <Accordion.Header>

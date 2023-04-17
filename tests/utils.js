@@ -3,6 +3,9 @@
 import { chromium } from "@playwright/test";
 import path from "path";
 
+const EXTENSION_ID = "ijgekmejilmpbgmndioednbbojogdhpn";
+const EXTENSION_URL = `chrome-extension://${EXTENSION_ID}/index.html`;
+
 const pathToExtension = path.join(__dirname, '../build');
 const userDataDir = '';
 
@@ -26,9 +29,6 @@ const createBrowserContext = async (headless) => {
     }
   );
 }
-
-const EXTENSION_ID = "alkbbhmbhgomddkieknclnjmhlgdgeig";
-const EXTENSION_URL = `chrome-extension://${EXTENSION_ID}/index.html`;
 
 export const getPageFromContext = async (headless=true) => {
   // "headless": if true, run test within headless/GUI-less browser context
