@@ -43,7 +43,10 @@ export default function Dashboard() {
 
     return (
         <>
-            <div id="dashboard-summary" className="row mb-5">
+            {graphData.length === 0 && <div className="text-center">
+                Start a blocking session to see insights on your productivity.
+            </div>}
+            {graphData.length !== 0 && <div><div id="dashboard-summary" className="row mb-5">
                 <div className="col-4">
                     <p className="text-md text-center">Session Length (min)</p>
                     <p className="text-lg text-center text-success">{sessionTime}</p>
@@ -57,34 +60,33 @@ export default function Dashboard() {
                     <p className="text-lg text-center text-danger">{numBlockedVisited}</p>
                 </div>
             </div>
+                <label htmlFor="url-time-chart" className="text-center w-100 mb-2 mt-2">
+                    Top Sites Used During Session
+                </label>
+                <BarChart
+                    id="url-time-chart"
+                    data={graphData}
+                    width={550} height={300}
+                    margin={{ top: 20, left: 10, bottom: 20 }}
+                    barSize={50}
+                    className="mb-5"
+                >
 
-            <label htmlFor="url-time-chart" className="text-center w-100 mb-2 mt-2">
-                Top Sites Used During Session
-            </label>
-            <BarChart
-                id="url-time-chart"
-                data={graphData}
-                width={550} height={300}
-                margin={{ top: 20, left: 10, bottom: 20 }}
-                barSize={50}
-                className="mb-5"
-            >
+                    {/* uncomment below 2 lines to enable grid or tooltip over bars, respectively */}
+                    {/* <CartesianGrid strokeDasharray="3 3" /> */}
+                    <Tooltip />
 
-                {/* uncomment below 2 lines to enable grid or tooltip over bars, respectively */}
-                {/* <CartesianGrid strokeDasharray="3 3" /> */}
-                <Tooltip />
-
-                <XAxis dataKey="url" tickFormatter={formatlgabel}>
-                    <Label value="URLs" offset={-10} position='insideBottom' />
-                </XAxis>
-                <YAxis>
-                    <Label value="Time (seconds)" angle="-90" position='insideLeft' style={{ textAnchor: 'middle' }} />
-                </YAxis>
-                <Bar dataKey="seconds" fill={BAR_COLOR}>
-                    {/* uncomment below line to display 'seconds' values above bars */}
-                    {/* <LabelList dataKey="seconds" position="top"/> */}
-                </Bar>
-            </BarChart>
+                    <XAxis dataKey="url" tickFormatter={formatlgabel}>
+                        <Label value="URLs" offset={-10} position='insideBottom' />
+                    </XAxis>
+                    <YAxis>
+                        <Label value="Time (seconds)" angle="-90" position='insideLeft' style={{ textAnchor: 'middle' }} />
+                    </YAxis>
+                    <Bar dataKey="seconds" fill={BAR_COLOR}>
+                        {/* uncomment below line to display 'seconds' values above bars */}
+                        {/* <LabelList dataKey="seconds" position="top"/> */}
+                    </Bar>
+                </BarChart></div>}
         </>
     );
 }

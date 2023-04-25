@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import SessionDuration from './SessionDuration';
 import BlockedURLs from './BlockedURLs';
 import NotificationSettings from './NotificationSettings';
@@ -9,7 +9,10 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
 export default function Popup() {
-
+    const [urlListSize, setUrlListSize] = useState(0);
+    const handleListSizeChange = (size) => {
+        setUrlListSize(size);
+    };
     return (
         <Tabs
             defaultActiveKey="block-urls"
@@ -17,8 +20,8 @@ export default function Popup() {
             className="mb-5"
         >
             <Tab eventKey="block-urls" title="Block URLs">
-                <SessionDuration />
-                <BlockedURLs />
+                <SessionDuration urlListSize={urlListSize} />
+                <BlockedURLs onUrlListSizeChange={handleListSizeChange} />
                 <NotificationSettings />
             </Tab>
             <Tab eventKey="tasklist" title="Task Lists">
