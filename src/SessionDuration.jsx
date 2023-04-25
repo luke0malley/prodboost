@@ -7,12 +7,13 @@ import Accordion from 'react-bootstrap/Accordion';
 import Alert from 'react-bootstrap/Alert';
 import moment from 'moment';
 
-export default function SessionDuration() {
+export default function SessionDuration({ urlListSize }) {
 
     const DURATION_UNIT_OPTIONS = ['minute(s)', 'hour(s)', 'day(s)']
     const [durationAmt, setDurationAmt] = useState(0);
     const [durationUnit, setDurationUnit] = useState(DURATION_UNIT_OPTIONS[0]);
     const [blockingSession, setBlockingSession] = useState({ blocking: false });
+    const [active, setActive] = useState(false);
 
     useEffect(() => {
         chrome.storage?.sync.get(["blockingsession"]).then((result) => {
@@ -22,6 +23,15 @@ export default function SessionDuration() {
             }
         })
     }, []);
+
+    useEffect(() => {
+        if (!active && urlListSize > 0) {
+            setActive(true);
+        }
+        else if (active && urlListSize === 0) {
+            setActive(false);
+        }
+    }, [urlListSize])
 
     const handleBlockingClick = () => {
         if (blockingSession.blocking) {
@@ -80,7 +90,7 @@ export default function SessionDuration() {
                     </p>
                 </Alert>
             }
-            <Accordion flush defaultActiveKey="0"
+            <Accordion flush activeKey={active ? "0" : ""} onSelect={() => setActive(!active)}
                 id="section-session-duration" className="mb-5"
             >
                 <Accordion.Item eventKey="0">

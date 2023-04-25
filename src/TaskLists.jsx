@@ -202,12 +202,13 @@ export default function TaskLists() {
                 </Row>
             </Collapse>
 
-            {(lists.length === 0) &&
+            {(Object.keys(lists).length === 0) && !editingLists &&
                 <div className="text-center">
-                    No task lists have been created...
+                    No task lists have been created.
                 </div>
             }
-            {lists &&
+            {
+                lists &&
                 Object.entries(lists).map((listEntry, index) => {
                     const listName = listEntry[0];
                     const tasks = listEntry[1]["tasks"];
@@ -250,15 +251,15 @@ export default function TaskLists() {
                                                     <div className="mb-1 d-flex justify-content-between" key={taskKey}>
                                                         {/* Note: 'id' assumes that no two tasks in a given list share a name */}
                                                         <div className="d-flex">
-                                                        <input type="checkbox" checked={isTaskDone}
-                                                            id={inputKey} className="mx-2"
-                                                            onChange={() => updateTaskStatus(listName, taskName, isTaskDone)}
-                                                        />
-                                                        <label type="checkbox" className="text-md d-flex align-items-center"
-                                                            htmlFor={inputKey}
-                                                        >
-                                                            {taskName}
-                                                        </label>
+                                                            <input type="checkbox" checked={isTaskDone}
+                                                                id={inputKey} className="mx-2"
+                                                                onChange={() => updateTaskStatus(listName, taskName, isTaskDone)}
+                                                            />
+                                                            <label type="checkbox" className="text-md d-flex align-items-center"
+                                                                htmlFor={inputKey}
+                                                            >
+                                                                {taskName}
+                                                            </label>
                                                         </div>
                                                         <div className="" style={listEntry[1]["editing"] ? { visibility: 'visible' } : { visibility: 'hidden' }}>
                                                             <OverlayTrigger
@@ -279,7 +280,7 @@ export default function TaskLists() {
                                         </>
                                         :
                                         <div>
-                                            This list has no tasks
+                                            No tasks have been added.
                                         </div>
                                     }
                                     <div role="button"
@@ -335,7 +336,8 @@ export default function TaskLists() {
                             </Accordion.Item>
                         </Accordion>
                     )
-                })}
+                })
+            }
         </>
     );
 }

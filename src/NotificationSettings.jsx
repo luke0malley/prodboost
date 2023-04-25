@@ -16,7 +16,7 @@ export default function NotificationSettings() {
             else {
                 setNotificationSettings({
                     'idle': {
-                        description: 'I have been idle for too long', isOn: true
+                        description: 'I have been idle for too long', isOn: false
                     }
                 });
             }
@@ -38,7 +38,7 @@ export default function NotificationSettings() {
     }
 
     return (
-        <Accordion flush defaultActiveKey="0"
+        <Accordion flush
             id="section-session-duration" className="mb-5"
         >
             <Accordion.Item eventKey="0">

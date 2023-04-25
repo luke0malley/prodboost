@@ -72,7 +72,11 @@ const checkBlocked = () => {
       result[1].blockingsession.blocking
     ) {
       for (let i = 0; i < result[0].blockedurls.length; i++) {
-        if (result[0].blockedurls[i].url === window.location.hostname) {
+        const withWWW = "www." + result[0].blockedurls[i];
+        if (
+          result[0].blockedurls[i] === window.location.hostname ||
+          withWWW === window.location.hostname
+        ) {
           blockPage(result[1].blockingsession.blocking_end);
         }
       }
